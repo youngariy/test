@@ -1,8 +1,10 @@
+
 # version: "3.9"    # <- 경고만 유발하므로 그대로 생략
 
 services:
   web:
     image: ${DOCKERHUB_USERNAME}/myflask:latest
+
     environment: # <- 매핑 형식
       FLASK_ENV: production
     expose:
@@ -11,11 +13,13 @@ services:
 
   nginx:
     container_name: nginx
+
     image: nginx:alpine
     depends_on:
       - web
     ports:
       - "80:80"
+
       - "443:443"
     volumes:
       - ./nginx/default.conf.template:/etc/nginx/templates/default.conf.template:ro
@@ -67,3 +71,5 @@ volumes:
     driver: local
   certbot-www:
     driver: local
+
+  
