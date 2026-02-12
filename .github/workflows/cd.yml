@@ -79,6 +79,12 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: trivy-image.sarif
+      
+      - name: Trivy table output (debug)
+        if: always()
+        run: |
+          trivy image --scanners vuln --vuln-type os,library \
+            --severity HIGH,CRITICAL --ignore-unfixed "${IMG}" || true
 
       - name: Trivy JSON (for SeveritySource)
         if: always()
